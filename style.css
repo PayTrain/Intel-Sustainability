@@ -33,7 +33,8 @@ body {
 
 /* ---- Hero Section ---- */
 .hero {
-  background: linear-gradient(135deg, var(--intel-blue) 70%, #0a2740 100%);
+  /* More even gradient for hero background */
+  background: linear-gradient(135deg, var(--intel-blue) 40%, #0a2740 100%);
   color: var(--white);
   padding: 2rem 1rem 2rem 1rem;
   text-align: center;
@@ -74,8 +75,6 @@ body {
   gap: 2rem;
   overflow-x: auto;
   overflow-y: visible;
-  /* Center timeline and show only 3 cards (plus gaps) on large screens */
-  justify-content: center;
   /* Calculate width */
   width: calc((var(--max-card-width) * 3) + (2rem * 2) + 2rem);
   margin-left: auto;
@@ -228,7 +227,7 @@ body {
     gap: 1.2rem;
     padding: 1.5rem 0.5rem 1.5rem 0.5rem;
     /* Set timeline width to fit 3 scaled-down cards plus gaps, matching desktop ratio */
-    width: calc((190px * 3) + (1.2rem * 2) + 2rem);
+    width: calc((190px * 3) + (1.2rem * 2) + 1rem);
     margin-left: auto;
     margin-right: auto;
   }
@@ -236,13 +235,20 @@ body {
     min-width: 170px;
     max-width: 210px;
     flex-basis: 190px;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.06);
     /* Make the card a positioning context for the overlay */
     position: relative;
   }
   .card-image {
     height: 90px;
-    /* Remove position: relative so overlay can cover the whole card */
     position: static;
+  }
+  /* Make images fit nicely in the smaller card image area */
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the area without distortion */
+    display: block;
   }
 
   .card-overlay {
@@ -267,19 +273,29 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  /* Make the timeline narrower for tablets and small screens */
+  .timeline {
+    width: calc((190px * 2) + (1rem * 2) + 5rem);
+    /* You can adjust the numbers above for even smaller cards if needed */
+    gap: 1rem;
+    padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+  }
+}
+
 @media (max-width: 576px) {
   .hero {
-    padding: 2rem 0.5rem 1.2rem 0.5rem;
+    padding: 3rem 2rem 1.2rem 2rem;
   }
   .intel-logo {
-    width: 80px;
+    width: 2.5rem;
     margin-bottom: 1rem;
   }
   .hero h1 {
     font-size: 1.1rem;
   }
   .hero p {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
   .timeline {
     flex-direction: column;
@@ -289,21 +305,70 @@ body {
     scroll-snap-type: none;
     padding: 1rem 0.2rem 1rem 0.2rem;
     width: 100%;
-    margin-left: 0;
-    margin-right: 0;
     justify-content: flex-start;
   }
   .timeline-card {
     min-width: 0;
     max-width: 100%;
-    width: 100%;
+    width: 80%;
     flex: 1 1 100%;
     margin: 0 auto;
+    position: relative;
   }
   .card-image {
-    height: 70px;
+    height: 160px;
+    position: relative;
   }
-  /* Overlay styles removed for mobile */
+  /* Overlay slides up only over the image, not the entire card */
+  .card-overlay {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: rgba(0, 49, 102, 0.92);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1);
+    z-index: 2;
+    text-align: left;
+    font-size: 0.8rem;
+    pointer-events: none;
+  }
+  .timeline-card:hover .card-overlay,
+  .timeline-card:focus-within .card-overlay {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  /* Make overlay only cover the image area */
+  .card-image {
+    overflow: hidden;
+  }
+  .card-image .card-overlay {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .timeline-card:hover .card-image .card-overlay,
+  .timeline-card:focus-within .card-image .card-overlay {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .timeline-instructions {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
 }
 
 /* ---- Accessibility: Focus Styles ---- */

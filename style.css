@@ -1,1 +1,269 @@
-/* Add your CSS here */
+/* =========================
+   Intel Sustainability Journey Styles
+   ========================= */
+
+/* ---- CSS Variables for Colors and Sizing ---- */
+:root {
+  --intel-blue: #0071C5;
+  --intel-navy: #003366;
+  --white: #fff;
+  --light-gray: #f5f7fa;
+  --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --card-radius: 1.2rem;
+  --overlay-bg: rgba(0, 49, 102, 0.92);
+  --transition: 0.35s cubic-bezier(0.4, 0.2, 0.2, 1);
+  --max-card-width: 320px;
+  --min-card-width: 260px;
+}
+
+/* ---- Reset and Base Styles ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--light-gray);
+  color: #222;
+  min-height: 100vh;
+}
+
+/* ---- Hero Section ---- */
+.hero {
+  background: linear-gradient(135deg, var(--intel-blue) 70%, #0a2740 100%);
+  color: var(--white);
+  padding: 3rem 1rem 2rem 1rem;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.intel-logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  letter-spacing: -1px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ---- Timeline Layout ---- */
+.timeline {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 2.5rem 2rem 2rem 2rem;
+  scroll-snap-type: x mandatory; /* Enables scroll snap on desktop */
+  -webkit-overflow-scrolling: touch;
+}
+
+.timeline-card {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  min-width: var(--min-card-width);
+  max-width: var(--max-card-width);
+  flex: 0 0 var(--max-card-width);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition);
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.timeline-card:hover,
+.timeline-card:focus-within {
+  transform: scale(1.045);
+  box-shadow: 0 8px 32px rgba(0, 49, 102, 0.18);
+  z-index: 2;
+}
+
+/* ---- Card Image ---- */
+.card-image {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  background: #e6eaf0;
+  border-top-left-radius: var(--card-radius);
+  border-top-right-radius: var(--card-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---- Card Content ---- */
+.card-content {
+  padding: 1.2rem 1rem 1.8rem 1rem;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.card-content h2 {
+  font-size: 1.3rem;
+  color: var(--intel-blue);
+  margin: 0 0 0.2rem 0;
+  font-weight: 700;
+}
+
+.card-content h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.7rem 0;
+  font-weight: 600;
+  color: var(--intel-navy);
+}
+
+.card-content p {
+  font-size: 1rem;
+  color: #333;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ---- Card Overlay (Hover Details) ---- */
+.card-overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--overlay-bg);
+  color: var(--white);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  transform: translateY(100%);
+  transition: transform var(--transition);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.timeline-card:hover .card-overlay,
+.timeline-card:focus-within .card-overlay {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.card-overlay > div {
+  width: 100%;
+  padding: 2.2rem 1.2rem 1.2rem 1.2rem;
+  text-align: left;
+}
+
+.card-overlay h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.card-overlay p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--white);
+  opacity: 0.95;
+}
+
+/* ---- Timeline Instructions ---- */
+.timeline-instructions {
+  text-align: center;
+  color: var(--intel-navy);
+  font-size: 1rem;
+  margin: 0 0 2rem 0;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Responsive Design ---- */
+@media (max-width: 900px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .timeline {
+    gap: 1.2rem;
+    padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+  }
+  .timeline-card {
+    min-width: 220px;
+    max-width: 260px;
+    flex-basis: 240px;
+  }
+  .card-image {
+    height: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 2rem 0.5rem 1.2rem 0.5rem;
+  }
+  .intel-logo {
+    width: 80px;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: 1.3rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .timeline {
+    flex-direction: column;
+    gap: 1.2rem;
+    overflow-x: visible;
+    overflow-y: visible;
+    scroll-snap-type: none;
+    padding: 1rem 0.2rem 1rem 0.2rem;
+  }
+  .timeline-card {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    flex: 1 1 100%;
+    margin: 0 auto;
+  }
+  .card-image {
+    height: 100px;
+  }
+  /* Disable hover overlay on mobile for usability */
+  .card-overlay {
+    display: none;
+  }
+}
+
+/* ---- Accessibility: Focus Styles ---- */
+.timeline-card:focus-within {
+  outline: 2px solid var(--intel-blue);
+  outline-offset: 2px;
+}

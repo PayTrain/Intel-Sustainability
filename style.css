@@ -220,7 +220,7 @@ body {
 }
 
 /* ---- Responsive Design ---- */
-@media (max-width: 900px) {
+@media (max-width: 992px) {
   .hero h1 {
     font-size: 2rem;
   }
@@ -232,13 +232,38 @@ body {
     min-width: 170px;
     max-width: 210px;
     flex-basis: 190px;
+    /* Make the card a positioning context for the overlay */
+    position: relative;
   }
   .card-image {
     height: 90px;
+    /* Remove position: relative so overlay can cover the whole card */
+    position: static;
+  }
+
+    .card-overlay {
+    /* Make overlay cover the entire card, not just the image */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    /* Start hidden below the card */
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1);
+    z-index: 2;
+    text-align: left;
+    font-size: 0.8rem; /* scaled down */
+  }
+  /* Show overlay when card is hovered or focused */
+  .timeline-card:hover .card-overlay,
+  .timeline-card:focus-within .card-overlay {
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 576px) {
   .hero {
     padding: 2rem 0.5rem 1.2rem 0.5rem;
   }

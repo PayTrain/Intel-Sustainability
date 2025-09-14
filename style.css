@@ -80,6 +80,9 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding: 2.5rem 1rem 1rem 1rem;
+  /* Enable horizontal scroll snap */
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 1rem; /* matches padding-left for snap alignment */
 }
 
 /* ---- Custom Scrollbar Styles for Timeline ---- */
@@ -230,6 +233,9 @@ body {
     width: calc((190px * 3) + (1.2rem * 2) + 1rem);
     margin-left: auto;
     margin-right: auto;
+    /* Enable horizontal scroll snap for tablet/medium screens */
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 0.5rem; /* matches padding-left for snap alignment */
   }
   .timeline-card {
     min-width: 170px;
@@ -274,6 +280,19 @@ body {
 }
 
 @media (max-width: 768px) {
+  
+  .hero {
+    padding: 2.5rem 6rem 2rem 6rem;
+  }
+  
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero p {
+    font-size: 0.85rem;
+  }
+
   /* Make the timeline narrower for tablets and small screens */
   .timeline {
     width: calc((190px * 2) + (1rem * 2) + 5rem);
@@ -285,7 +304,7 @@ body {
 
 @media (max-width: 576px) {
   .hero {
-    padding: 3rem 2rem 1.2rem 2rem;
+    padding: 3rem 3rem 1.2rem 3rem;
   }
   .intel-logo {
     width: 2.5rem;
@@ -293,6 +312,7 @@ body {
   }
   .hero h1 {
     font-size: 1.1rem;
+    margin-bottom: 0.5rem;
   }
   .hero p {
     font-size: 0.8rem;
@@ -303,7 +323,7 @@ body {
     overflow-x: visible;
     overflow-y: visible;
     scroll-snap-type: none;
-    padding: 1rem 0.2rem 1rem 0.2rem;
+    padding: 1.2rem 0.2rem 1rem 0.2rem;
     width: 100%;
     justify-content: flex-start;
   }

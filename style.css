@@ -227,6 +227,10 @@ body {
   .timeline {
     gap: 1.2rem;
     padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+    /* Set timeline width to fit 3 scaled-down cards plus gaps, matching desktop ratio */
+    width: calc((190px * 3) + (1.2rem * 2) + 2rem);
+    margin-left: auto;
+    margin-right: auto;
   }
   .timeline-card {
     min-width: 170px;
@@ -241,7 +245,7 @@ body {
     position: static;
   }
 
-    .card-overlay {
+  .card-overlay {
     /* Make overlay cover the entire card, not just the image */
     position: absolute;
     left: 0;
@@ -254,7 +258,7 @@ body {
     transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1);
     z-index: 2;
     text-align: left;
-    font-size: 0.8rem; /* scaled down */
+    font-size: 0.75rem; /* scaled down */
   }
   /* Show overlay when card is hovered or focused */
   .timeline-card:hover .card-overlay,

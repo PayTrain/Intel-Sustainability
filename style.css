@@ -74,9 +74,13 @@ body {
   gap: 2rem;
   overflow-x: auto;
   overflow-y: visible;
-  padding: 2.5rem 2rem 2rem 2rem;
-  scroll-snap-type: x mandatory; /* Enables scroll snap on desktop */
-  -webkit-overflow-scrolling: touch;
+  /* Center timeline and show only 3 cards (plus gaps) on large screens */
+  justify-content: center;
+  /* Calculate width: 3 cards + 2 gaps + 2*1rem padding */
+  width: calc((var(--max-card-width) * 3) + (2rem * 2) + 2rem);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2.5rem 1rem 2rem 1rem;
 }
 
 .timeline-card {
@@ -92,6 +96,7 @@ body {
   transition: transform var(--transition), box-shadow var(--transition);
   scroll-snap-align: start;
   overflow: hidden;
+  outline: none; /* Remove default outline, we'll add a custom one for focus */
 }
 
 .timeline-card:hover,
@@ -112,13 +117,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  position: relative;
 }
 
 /* ---- Card Content ---- */
@@ -149,51 +148,37 @@ body {
   color: #333;
   margin: 0;
   line-height: 1.5;
+  display: none; /* Hide the summary text in the card-content (if still present) */
 }
 
-/* ---- Card Overlay (Hover Details) ---- */
+/* --- Overlay Styles for Timeline Card --- */
+
+/* Overlay: hidden by default, slides up on hover/focus */
 .card-overlay {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: var(--overlay-bg);
-  color: var(--white);
+  background: rgba(0, 49, 102, 0.92); /* dark blue, semi-transparent */
+  color: #fff;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 1rem;
+  box-sizing: border-box;
   transform: translateY(100%);
-  transition: transform var(--transition);
-  z-index: 3;
-  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.4, 0.2, 0.2, 1);
+  z-index: 2;
+  text-align: left;
+  font-size: 1rem;
+  border-radius: inherit;
 }
 
+/* Show overlay on hover or focus-within */
 .timeline-card:hover .card-overlay,
 .timeline-card:focus-within .card-overlay {
   transform: translateY(0);
-  pointer-events: auto;
-}
-
-.card-overlay > div {
-  width: 100%;
-  padding: 2.2rem 1.2rem 1.2rem 1.2rem;
-  text-align: left;
-}
-
-.card-overlay h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--white);
-}
-
-.card-overlay p {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--white);
-  opacity: 0.95;
 }
 
 /* ---- Timeline Instructions ---- */
@@ -256,10 +241,7 @@ body {
   .card-image {
     height: 100px;
   }
-  /* Disable hover overlay on mobile for usability */
-  .card-overlay {
-    display: none;
-  }
+  /* Overlay styles removed for mobile */
 }
 
 /* ---- Accessibility: Focus Styles ---- */

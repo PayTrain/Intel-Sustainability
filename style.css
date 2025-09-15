@@ -182,23 +182,16 @@ body {
   color: var(--intel-navy);
 }
 
-.card-content p {
-  font-size: 0.85rem; /* scaled down */
-  color: #333;
-  margin: 0;
-  line-height: 1.5;
-  display: none; /* Hide the summary text in the card-content (if still present) */
-}
-
 /* --- Overlay Styles for Timeline Card --- */
 
 /* Overlay: hidden by default, slides up on hover/focus */
+/* Overlay: hidden by default, slides up on hover/focus */
 .card-overlay {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+  left: -2px; /* extend overlay slightly beyond card/image edge */
+  bottom: -2px;
+  width: calc(100% + 4px); /* make overlay slightly wider */
+  height: calc(100% + 4px); /* make overlay slightly taller */
   background: rgba(0, 49, 102, 0.92); /* dark blue, semi-transparent */
   color: #fff;
   display: flex;
@@ -257,15 +250,13 @@ body {
     height: 90px;
     position: static;
   }
-  /* Images already set to fill card area above */
-
+  /* Overlay covers the entire card, slightly larger to prevent slivers */
   .card-overlay {
-    /* Make overlay cover the entire card, not just the image */
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    left: -2px;
+    top: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
     border-radius: inherit;
     /* Start hidden below the card */
     transform: translateY(100%);
@@ -340,15 +331,15 @@ body {
   .card-image {
     height: 160px;
     position: relative;
+    overflow: hidden;
   }
-  /* Images already set to fill card area above */
-  /* Overlay slides up only over the image, not the entire card */
-  .card-overlay {
+  /* Overlay slides up only over the image, slightly larger to prevent slivers */
+  .card-image .card-overlay {
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
+    left: -2px;
+    bottom: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
     border-radius: inherit;
     background: rgba(0, 49, 102, 0.92);
     color: #fff;
@@ -362,24 +353,6 @@ body {
     z-index: 2;
     text-align: left;
     font-size: 0.8rem;
-    pointer-events: none;
-  }
-  .timeline-card:hover .card-overlay,
-  .timeline-card:focus-within .card-overlay {
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  /* Make overlay only cover the image area */
-  .card-image {
-    overflow: hidden;
-  }
-  .card-image .card-overlay {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
     pointer-events: none;
   }
   .timeline-card:hover .card-image .card-overlay,
